@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float thrustStrength = 1f;
     [SerializeField] float rotationThrust = 1f;
     [SerializeField] AudioClip mainEngine;
+    [SerializeField] ParticleSystem thrustParticles;
     Rigidbody rb;
 
     AudioSource audioData;
@@ -34,11 +35,13 @@ public class Movement : MonoBehaviour
 
          if (Input.GetKeyDown(KeyCode.Space))
          {
+            thrustParticles.Play();
             audioData.PlayOneShot(mainEngine);
          }
 
          if (Input.GetKeyUp(KeyCode.Space))
          {
+            thrustParticles.Stop();
             audioData.Stop();
          }
     }
