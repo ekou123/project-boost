@@ -4,15 +4,27 @@ using Unity.VisualScripting;
 
 public class CollisionHandler : MonoBehaviour
 {
+    AudioSource audioData;
+    [SerializeField] AudioClip winClip;
+    [SerializeField] AudioClip loseClip;
+
+    bool isTransitioning = false;
+
+    private void Start() {
+        audioData = GetComponent<AudioSource>();
+    }
     
     void OnCollisionEnter(Collision other) 
     {
+        if (isTransitioning) {return;}
+
         switch (other.gameObject.tag)
         {
             case "Friendly":
                 Debug.Log("This thing is Friendly");
                 break;
             case "Finish":
+                audioData.PlayOneShot(winClip);
                 StopPlayerControls();
                 Invoke("LoadNextLevel", 1f);
                 break;
@@ -20,6 +32,7 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("Fueling up!");
                 break;
             default:
+                StopPlayerControls();
                 StartCrashSequence();
                 break;
         }
@@ -27,7 +40,7 @@ public class CollisionHandler : MonoBehaviour
 
     void StartCrashSequence()
     {
-        StopPlayerControls();
+        audioData.PlayOneShot(loseClip);
         Invoke("ReloadLevel", 1f);
     }
 

@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] float thrustStrength = 1f;
     [SerializeField] float rotationThrust = 1f;
+    [SerializeField] AudioClip mainEngine;
     Rigidbody rb;
 
     AudioSource audioData;
@@ -33,7 +34,7 @@ public class Movement : MonoBehaviour
 
          if (Input.GetKeyDown(KeyCode.Space))
          {
-            audioData.Play(0);
+            audioData.PlayOneShot(mainEngine);
          }
 
          if (Input.GetKeyUp(KeyCode.Space))
