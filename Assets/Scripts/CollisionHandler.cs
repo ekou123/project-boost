@@ -1,6 +1,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using Unity.VisualScripting;
+using System;
 
 public class CollisionHandler : MonoBehaviour
 {
@@ -12,15 +13,33 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] ParticleSystem loseParticles;
 
     bool isTransitioning = false;
+    bool collisionDisabled = false;
 
     private void Start() {
         audioData = GetComponent<AudioSource>();
 
     }
-    
+
+    private void Update() {
+        RespondToDebugKeys();
+    }
+
+    private void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionDisabled = !collisionDisabled; // Toggle collision
+
+        }
+    }
+
     void OnCollisionEnter(Collision other) 
     {
-        if (isTransitioning) {return;}
+        if (isTransitioning || collisionDisabled) {return;}
 
         switch (other.gameObject.tag)
         {
