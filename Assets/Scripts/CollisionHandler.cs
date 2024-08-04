@@ -8,10 +8,14 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] AudioClip winClip;
     [SerializeField] AudioClip loseClip;
 
+    [SerializeField] ParticleSystem winParticles;
+    [SerializeField] ParticleSystem loseParticles;
+
     bool isTransitioning = false;
 
     private void Start() {
         audioData = GetComponent<AudioSource>();
+
     }
     
     void OnCollisionEnter(Collision other) 
@@ -24,6 +28,7 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("This thing is Friendly");
                 break;
             case "Finish":
+                winParticles.Play();
                 audioData.PlayOneShot(winClip);
                 StopPlayerControls();
                 Invoke("LoadNextLevel", 1f);
@@ -32,6 +37,7 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("Fueling up!");
                 break;
             default:
+                loseParticles.Play();
                 StopPlayerControls();
                 StartCrashSequence();
                 break;

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6619376689311765728}
   m_Layer: 0
   m_Name: Finish Pad
-  m_TagString: Friendly
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fb13795ddde51c049a8f7a15ea066953, type: 2}
+  - {fileID: 2100000, guid: badfa00a96a0999488c706b055265a05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
