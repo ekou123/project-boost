@@ -40,6 +40,7 @@ public class CollisionHandler : MonoBehaviour
 
     void StartCrashSequence()
     {
+        audioData.Stop();
         audioData.PlayOneShot(loseClip);
         Invoke("ReloadLevel", 1f);
     }
@@ -57,6 +58,7 @@ public class CollisionHandler : MonoBehaviour
 
     void LoadNextLevel()
     {
+        audioData.Stop();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
         if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
