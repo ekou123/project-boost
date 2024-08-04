@@ -19,31 +19,28 @@ public class Movement : MonoBehaviour
         audioData = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        ProcessThrust();
-        ProcessRotation();
-    }
+    // Update is called once per frame'
+    private void StopThrusting()
+        {
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                thrustParticles.Stop();
+                audioData.Stop();
+            }
+        }
 
-    void ProcessThrust()
+    private void StartThrusting()
     {
-         if (Input.GetKey(KeyCode.Space))
-         {
-            rb.AddRelativeForce(0,thrustStrength,0);
-         }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            rb.AddRelativeForce(0, thrustStrength, 0);
+        }
 
-         if (Input.GetKeyDown(KeyCode.Space))
-         {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
             thrustParticles.Play();
             audioData.PlayOneShot(mainEngine);
-         }
-
-         if (Input.GetKeyUp(KeyCode.Space))
-         {
-            thrustParticles.Stop();
-            audioData.Stop();
-         }
+        }
     }
 
     void ProcessRotation()
@@ -56,6 +53,18 @@ public class Movement : MonoBehaviour
          {  
             ApplyRotation(-rotationThrust);
          }
+    }
+
+    void Update()
+    {
+        ProcessThrust();
+        ProcessRotation();
+    }
+
+    void ProcessThrust()
+    {
+        StartThrusting();
+        StopThrusting();
     }
 
     void ApplyRotation(float rotationThisFrame)
